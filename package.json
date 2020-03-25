@@ -22,8 +22,7 @@
     "passport-local": "^1.0.0",
     "pdfkit": "^0.11.0",
     "pdfmake": "^0.1.63",
-    "xls-to-json-lc": "^0.3.4",
-    "xlsx-to-json-lc": "0.2.x"
+    "xls-to-json-lc": "^0.3.4"
   },
   "devDependencies": {},
   "scripts": {
