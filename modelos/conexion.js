@@ -16,11 +16,13 @@ module.exports = myConnection*/
 
 var mysql = require("mysql");
 var myConnection = mysql.createConnection({
-           host: '127.0.0.1',
-           user: 'root',
-           password: '',
-           database: 'lafordautomotriz',
+           host: 'bqps2rbxzko9w8yb1npn-mysql.services.clever-cloud.com',
+           user: 'ud9skvs69z7qnnbi',
+           password: 'jEHm7GKVQr54cSqqaghn',
+           database: 'bqps2rbxzko9w8yb1npn',
            port: '3306'
 });
+
+
 myConnection.connect();
 module.exports = myConnection;
