@@ -38,7 +38,9 @@ app
 
 //requires
 require('./controlador/passport')(passport);
-
+process.on('uncaughtException', function (err) {
+    console.log(err);
+}); 
 //routes
 const rutaIndex = require("./routes/index")(app, passport);
 const rutaUsuario = require("./routes/usuario")(app, passport);
