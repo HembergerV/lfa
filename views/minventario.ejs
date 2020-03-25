@@ -1,0 +1,335 @@
+<%- include('header', {rol: usuario.rol}); %>
+      <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Inventario</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="card-header with-border">
+                  <h1 class="box-title">
+                  <button class="btn btn-success" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#repuestoModal"> Agregar </button>
+                  <input type="button" class="btn btn-warning btn-md update" id="tasita" data-toggle="modal" data-target="#tasaModal" value="TASA: <%= tasa[0].monto %>"></h1>
+                  <div class="box-tools pull-right">
+                  </div>
+                </div>
+                <div class="card-body table-responsive">
+                  <table id="repuesto_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Referencia</th>
+                        <th width="40%">Nro Parte</th>
+                        <th width="70%">Descripción</th>
+                        <th>Marca</th>
+                        <th width="1%">Exist.</th>
+                        <th>Precio</th>
+                        <th>Editar</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!--FORMULARIO VENTANA MODAL-->
+  <div id="tasaModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form method="post" id="tasa_form">
+          <div class="modal-content card-success card-outline">
+            <div class="modal-header">
+              <h4 class="modal-title">Modificar tasa actual</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="col-md-10 offset-md-1 my-3">
+                  <label><code>*</code> &nbsp;Monto</label>
+                  <input type="text" name="tasa" value="<%= tasa[0].monto %>" id="tasa" class="form-control" placeholder="" required maxlength="10"/>
+                </div>
+              </div>
+              <br>
+              <code>&nbsp; &nbsp; &nbsp;(*) Campos Obligatorios</code>
+            </div>
+            <div class="modal-footer">
+              <br>
+              <input type="hidden" name="idtasa" id="idtasa"/>
+              <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add"> Guardar <i class="fas fa-user-check"></i></button>
+              <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal"> Cancelar <i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    <!--FORMULARIO VENTANA MODAL-->
+    <div id="repuestoModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <form method="post" id="repuesto_form">
+          <div class="modal-content card-success card-outline">
+            <div class="modal-header">
+              <h4 class="modal-title">Agregar Repuesto</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-row my-4">
+                <div class="col-md-8 mb-4">
+                <label><code> * </code>Repuesto</label>
+                    <select style="width:100%;" class="form-control js-example-basic-multiple" required name='repuesto' id='repuesto' class='selecs controlDisabled cursor-bloqueado' onchange="camposrepuesto(this.value,this.name)" >
+                    <option value=""  selected>Seleccione una opcion</option>
+                       <%
+                           var resultado = items;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].idrepuesto %>'><%= resultado[i].descripcion %> <%= resultado[i].numero_parte %> / <%= resultado[i].numero_parte_secundario %></option> <%
+                                }
+                            }
+                        %>
+                    </select>
+                </div>
+
+                 <div class="col-md-2">
+                  <label><code> * </code> Referencia</label>
+                  <input type="text" name="referencia" id="referencia" class="form-control" required  maxlength="8" disabled />
+                </div>
+                <div class="col-md-2">
+                  <label><code> * </code> Cantidad</label>
+                  <input type="text" name="cantidad" id="cantidad" class="form-control"  required onKeyPress="return fnv_soloNumeros(event)" maxlength="3" />
+                </div>
+              </div>
+              <div class="form-row my-4">
+               <div class="col-md-4">
+                  <label><code> * </code> Estante</label>
+                  <input type="text" name="estante" id="estante" class="form-control" onKeyPress="return fnv_soloNumeros(event)" required  maxlength="2"  />
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Fila</label>
+                  <input type="text" name="fila" id="fila" class="form-control" onKeyPress="return fnv_soloNumeros(event)" required  maxlength="2"  />
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Columna</label>
+                  <input type="text" name="columna" id="columna" class="form-control" onKeyPress="return fnv_soloNumeros(event)" required  maxlength="2"  />
+                </div>
+
+              </div>
+              <div class="form-row my-4">
+               <div class="col-md-4">
+                  <label><code> * </code> Stock Mínimo</label>
+                  <input type="text" name="minimo" id="minimo" class="form-control" required  maxlength="50"  disabled/>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> N° Parte</label>
+                  <input type="text" name="numero_parte" id="numero_parte" class="form-control" required  maxlength="50" disabled />
+                </div>
+                <div class="col-md-4">
+                  <label> N° Parte Secundario</label>
+                  <input type="text" name="numero_parte_secundario" id="numero_parte_secundario" class="form-control"  maxlength="50" disabled />
+                </div>
+
+              </div>
+              <div class="form-row my-4">
+               <div class="col-md-4">
+                  <label><code> * </code> Marca</label>
+                  <select id="marca" name="marca" class="form-control" required disabled>
+                    <option value="" selected>Seleccione una opcion</option>
+                       <%
+                           var resultado = marcas;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].id %>'><%= resultado[i].nombre %></option> <%
+                                }
+                            }
+                        %>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Línea</label>
+                  <select class="form-control" id="idlinea" name="idlinea" required onchange="cargarCombo(this.value,this.name,'sublinea','idsublinea','nombre','')"disabled>
+                  <option value="" selected>Seleccione una opcion</option>
+                     <%
+                           var resultado = lineas;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].idlinea %>'><%= resultado[i].nombre %></option> <%
+                                }
+                            }
+                        %>
+
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Sub Línea</label>
+                  <select id="idsublinea" name="idsublinea" class="form-control" required disabled>
+                    <option value="" selected>Seleccione una opcion</option>
+                        <%
+                           var resultado = sublineas;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].idsublinea %>'><%= resultado[i].nombre %></option> <%
+                                }
+                            }
+                        %>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row my-4">
+                <div class="col-md-6">
+                  <label><code> * </code> Proveedor</label>
+                  <select style="width:100%;" class="form-control js-example-basic-multiple"  name='nombre' id='nombre' class='selecs controlDisabled cursor-bloqueado' onchange="camposproveedor(this.value)" >
+                    <option value=""  selected>Seleccione una opcion</option>
+                       <%
+                           var resultado = proveedores;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].idproveedor %>'><%= resultado[i].nombre %> <%= resultado[i].abreviatura %>-<%= resultado[i].rif %></option> <%
+                                }
+                            }
+                        %>
+                    </select>
+                    <input type="hidden" name="nombreOriginal" id="nombreOriginal" class="form-control"   />
+                </div>
+                <div class="col-md-2">
+                  <label><code> * </code>Índice</label>
+                  <select id="tiporif" name="tiporif" class="form-control" required disabled>
+                    <option value="" selected></option>
+                       <%
+                           var resultado = rifs;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].id %>'><%= resultado[i].abreviatura %></option> <%
+                                }
+                            }
+                        %>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Rif</label>
+                  <input type="text" name="rif" id="rif" class="form-control"  required onKeyPress="return fnv_soloNumeros(event)" maxlength="9" disabled />
+                </div>
+              </div>
+              <div class="form-row my-4">
+                <div class="col-md-12">
+                  <label>Nota</label>
+                  <textarea cols="80" rows="2" id="nota" name="nota"    pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$"></textarea>
+                  <br>
+                  <code>(*) Campos Obligatorios</code>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <!-- <input type="hidden" name="estatus" id="estatus" value="0"/> -->
+              <input type="hidden" name="idrepuesto" id="idrepuesto"/>
+              <input type="hidden" name="idproveedor" id="idproveedor"/>
+              <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Guardar <i class="fas fa-user-check"></i></button>
+              <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cancelar<i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--FORMULARIO VENTANA MODAL-->
+    <div  id="repuestoEditModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form method="post" id="repuestoEdit_form">
+            <div class="modal-content card-success card-outline">
+              <div class="modal-header">
+                <h4 class="modal-title">Editar Repuesto</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-row my-4">
+                    <div class="col-md-3 offset-md-1">
+                      <label><code> * </code> Estante</label>
+                      <input type="text" name="estante" id="estante2" class="form-control"  required onKeyPress="return fnv_soloNumeros(event)" maxlength="2" />
+                    </div>
+                    <div class="col-md-3 ">
+                      <label><code> * </code> Fila</label>
+                      <input type="text" name="fila" id="fila2" class="form-control"  required onKeyPress="return fnv_soloNumeros(event)" maxlength="2" />
+                    </div>
+                    <div class="col-md-3">
+                      <label> Columna</label>
+                      <input type="text" name="columna" id="columna2" class="form-control"   onKeyPress="return fnv_soloNumeros(event)" maxlength="2" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                  <div class="col-md-9 offset-md-1 mb-3">
+                    <label><code>*</code> &nbsp;Cantidad</label>
+                    <input type="text" name="cantidadEdit" id="cantidadEdit" class="form-control" placeholder="Ej: 4" required onKeyPress="return fnv_soloNumeros(event)" maxlength="4" />
+                    <input type="hidden" name="cantidadEditOriginal" id="cantidadEditOriginal" class="form-control"   />
+                  </div>
+                  <br>
+                </div>
+
+                <div class="form-row">
+                  <div class="col-md-9 offset-md-1 mb-3">
+                    <label><code>*</code> &nbsp;Lechugas</label>
+                    <input type="text" name="precioEdit" id="precioEdit" class="form-control" placeholder="Ej: En divisas" required maxlength="6" />
+                  </div>
+                  <br>
+                </div>
+
+               <!-- <div class="form-row">
+                  <div class="col-md-10 offset-md-1 mb-3">
+                    <label><code>*</code> &nbsp;Razón modificación</label>
+                    <input type="text" name="razon" id="razon" class="form-control" placeholder="Justificación salida y entrada" required  maxlength="100" />
+                  </div>
+                  <br>
+                  <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code> (*) Campos Obligatorios</code></label>
+                </div>-->
+
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="idrepuestoEdit" id="idrepuestoEdit"/>
+                <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Guardar <i class="fas fa-user-check"></i></button>
+                <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cancelar <i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <% include footer %>
+
+    <script>
+        $(document).ready(function() {
+          $('.js-example-basic-multiple').select2({
+                language: "es"
+              , theme: "bootstrap"
+              , width: null
+              , tokenSeparators: [',', '.']
+              , minimumInputLength: 1
+          });
+
+          $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: '-1m',
+            autoclose: true,
+            endDate: new Date()
+          });
+
+
+
+        });
+    <% include js/minventario.js %>
+    </script>
+    </body>
+    </html>

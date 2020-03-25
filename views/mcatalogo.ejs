@@ -1,0 +1,76 @@
+<%- include('header', {rol: usuario.rol}); %>
+      <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Catalogo</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="card-header with-border">
+                  <h1 class="box-title">
+                  <button class="btn btn-success"  id="add_button" data-toggle="modal" data-target="#crearpModal"><a style="text-decoration: none; color:white" href="/mcrearpedido"><i class="fa fa-search" aria-hidden="true"></i> Agregar</a></button></h1>
+                  <div class="box-tools pull-right">
+                  </div>
+                </div>
+                <div class="card-body table-responsive">
+                  <table id="repuesto_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Referencia</th>
+                        <th width="40%">Nro parte</th>
+                        <th width="70%">Descripción</th>
+                        <th>Marca</th>
+                        <th width="1%">Existencia</th>
+                        <th>Disponible</th>
+                        <th>Precio</th>
+                        <th>#</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    <% include footer %>
+
+    <script>
+        $(document).ready(function() {
+          $('.js-example-basic-multiple').select2({
+                language: "es"
+              , theme: "bootstrap"
+              , width: null
+              , tokenSeparators: [',', ' ']
+              , minimumInputLength: 1
+          });
+
+          $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: '-1m',
+            autoclose: true,
+            endDate: new Date()
+          });
+
+
+
+        });
+    <% include js/mcatalogo.js %>
+    </script>
+    </body>
+    </html>

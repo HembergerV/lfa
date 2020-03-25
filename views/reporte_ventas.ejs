@@ -1,0 +1,93 @@
+<%- include('header', {rol: usuario.rol}); %>
+<form method="post" id="">
+    <!--___________________________CONTENIDO______________________________-->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Reporte Ventas</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="col-md-6 my-5 offset-md-1">
+                      <label>Tipo</label>
+                      <select class="form-control" id="estatus" name="estatus" required>
+                        <option value="" selected> Selecciona tipo </option>
+                        <option value="1">Tabla</option>
+                        <option value="0">Gráfica</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 my-5">
+                      <label>Fecha Desde</label>
+                      <input type="text" name="fecha" id="fecha" class="form-control datepicker" placeholder="" required onKeyPress="" />
+                    </div>
+                    <div class="col-md-2 my-5">
+                      <label>Fecha Hasta</label>
+                      <input type="text" name="fecha" id="fecha" class="form-control datepicker" placeholder="" required onKeyPress="" />
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                  <input type="button" onClick="generarpdf()" value="Generar PDF" class="btn btn-success pull-left" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    </form>
+
+    <% include footer %>
+
+
+<script>
+
+    function generarpdf(){
+
+      window.open("reportes/control/c_rpttramite");
+    }
+
+    function fnv_soloNumeros(e){
+    var keynum = window.event ? window.event.keyCode : e.which;
+
+      if ((keynum == 8) || (keynum == 46))
+      return true;
+
+      return /\d/.test(String.fromCharCode(keynum));
+    }
+    function soloLetrasConEspacio(e) {
+      tecla = (document.all) ? e.keyCode : e.which;
+      if (tecla==8) return true; // backspace
+      if (tecla==32) return true; // espacio
+
+      patron = /[a-zA-Z]/; //patron
+
+      te = String.fromCharCode(tecla);
+      return patron.test(te); // prueba de patron
+    }
+    $(document).ready(function() {
+      $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        startDate: '-1m',
+        autoclose: true,
+        endDate: new Date()
+      });
+    });
+
+
+
+</script>

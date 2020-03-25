@@ -1,0 +1,105 @@
+<%- include('header', {rol: usuario.rol}); %>
+<form method="post" id="">
+    <!--___________________________CONTENIDO______________________________-->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Repuesto</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="modal-body">
+
+                <div class="form-row">
+                   <div class="col-md-12 mb-12">
+
+                        <ul style="font-size: 14px;">
+                        <li>Referencia: <strong> <span id=""> <%= repuesto[0].referencia %></span> </strong> </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-6 mb-6">
+
+                        <ul style="font-size: 14px;">
+                        <li>Nro. Parte:   <strong> <span id=""> <%= repuesto[0].numero_parte %>  </span> </strong> </li>
+                        <li>Marca:  <strong> <span id=""> <%= repuesto[0].nombre_marca %> </span> </strong> </li>
+                        <li>Línea:  <strong> <span id=""> <%= repuesto[0].nombre_linea %> </span> </strong> </li>
+                        <li>Sublínea: <strong> <span id=""> <%= repuesto[0].nombre_sublinea %></span> </strong> </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-6 mb-6">
+
+                        <ul style="font-size: 14px;">
+                        <li>Precio $:  <strong> <span id=""> <%= inventario[0].precio %> </span> </strong> </li>
+                        <li>Precio BS: <strong> <span id=""> <%= inventario[0].monto %></span> </strong> </li>
+                        <li>Existencia: <strong> <span id=""> <%= inventario[0].cantidad %></span> </strong> </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-12 mb-12">
+
+                        <ul style="font-size: 14px;">
+                        <li>Descripción:  <strong> <span id=""> <%= repuesto[0].descripcion %> </span> </strong> </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-12 mb-12">
+
+                        <table id="" class="table table-sm table-bordered table-striped">
+                          <thead>
+                              <tr>
+                              <th style='text-align: center;' width="8%" >#</th>
+                              <th style='text-align: center;' >Usuario</th>
+                              <th style='text-align: center;' >Concepto</th>
+                              <th style='text-align: center;' >Acción</th>
+                              <th style='text-align: center;' width="20%">Fecha</th>
+                              <th style='text-align: center;' width="10%">Cantidad</th>
+                              </tr>
+                          </thead>
+                          <tbody id="">
+                           <% for(var i = 0; i < movimientos.length; i++){ %>
+                            <tr>
+                              <td style='text-align: center;'><%= i+1 %></td>
+                              <td style='text-align: center;'><%= movimientos[i].usuario %></td>
+                              <td style='text-align: center;'><%= movimientos[i].concepto %></td>
+                              <td style='text-align: center;'><%= movimientos[i].tipomovimiento %></td>
+                              <% var fecha = new Date(movimientos[i].fecha) %>
+                              <td style='text-align: center;'><%= fecha.getDate() %>-<%= fecha.getMonth()+1 %>-<%= fecha.getFullYear() %></td>
+                              <% if(movimientos[i].tipomovimiento == "ENTRADA"){ %>
+                                <td style='text-align: left;'><i class="fa fa-plus" style="color:green"></i> <%= movimientos[i].cantidad %></td>
+                              <% } else { %>
+                                <td style='text-align: left;'><i class="fa fa-minus" style="color:#DC3545"></i> <%= movimientos[i].cantidad %></td>
+                              <% } %>
+                            </tr>
+                           <% } %>
+                          </tbody>
+                        </table>
+                    </div>
+
+                  </div><!-- fin form-row-->
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    </form>
+    <% include footer %>

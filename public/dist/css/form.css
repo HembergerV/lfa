@@ -1,0 +1,90 @@
+.label{
+    z-index: 100000;
+}
+.cont-form{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-content: center
+}
+.alert{
+    position: auto;
+    display: block;
+    width: 100%;
+    height: 30px;
+    background: rgba(141,12,22,.6);
+    border-radius: 4px;
+    color: whitesmoke;
+    padding: 5px;
+    margin-top: 10px
+    
+}
+.form{
+    transform: translateX(-500%);
+    position: fixed;
+    z-index: 10001;
+    padding: 30px;
+    color: #495057;
+    transition: all 0.3s;
+    opacity: 0.2;
+    margin: 100px auto 0px 50%;
+    left: -200px;
+    border-top: 28px solid #495057;
+    box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.6);
+}
+
+.translatea{
+    transform: translateX(0%);
+    opacity: 1
+}
+#acceder{
+    display: none;
+}
+.label{
+    z-index: 1000;
+    position: fixed;
+    margin: 7.5px;
+    left: 180px;
+    cursor: pointer;
+    color: white;
+    background: #1E90FF;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: 500
+}
+.label:hover{
+    filter: brightness(1.14)
+}
+
+#form{
+    width: 400px;
+    height: 400px;
+    background: white;
+    opacity: 0.9;
+    border-radius: 9px
+}
+.form .icon-cancel{
+    position: absolute;
+    color: #495057;
+    right: 24px
+}
+
+#form input, #form textarea{
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    display: block;
+    margin-bottom: 5px;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #495057;
+    color: #495057;
+}
+#form input:hover{
+    filter: brightness(1.14)
+}
+textarea{
+    resize: none;
+    width: 100%;
+    height: 120px
+}

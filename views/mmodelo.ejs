@@ -1,0 +1,374 @@
+<%- include('header', {rol: usuario.rol}); %>
+    <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 id=""><%= modelos[0].marca %> <%= modelos[0].nombre %></h1>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-success card-outline p-2">
+                <div class="card-header with-border">
+                  <h1 class="box-title">
+                  <button class="btn btn-success" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#clienteModal"> Agregar </button></h1>
+                  <div class="box-tools pull-right">
+                  </div>
+                </div>
+                <div class="card-body table-responsive">
+                  <table id="cliente_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th width="2%">#</th>
+                        <th width="10%">Nro. Placa</th>
+                        <th width="25%">Vehículo</th>
+                        <th width="15%">Cliente</th>
+                        <th width="12%">Teléfono</th>
+                        <th width="10%">Pago</th>
+                        <th width="10%">Estatus</th>
+                        <th width="18%">Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div><!--Fin centro -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!--FORMULARIO VENTANA MODAL-->
+    <div id="clienteModal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+          <form method="post" id="cliente_form">
+            <div class="modal-content card-success card-outline">
+              <div class="modal-header">
+                <h4 class="modal-title">Recepción vehículo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-row my-4">
+                  <div class="col-md-6" id="cli">
+                    <label><code> * </code> Cliente</label>
+                    <select style="width:100%;" class="form-control js-example-basic-multiple" required placeholder="Ej: HELENA VÁSQUEZ"   name='cliente' id='cliente' class='selecs controlDisabled cursor-bloqueado' onchange="camposcliente(this.value)" >
+                      <option value=""  selected>Seleccione una opcion</option>
+                         <%
+                             var resultado = clientes;
+                              for(var i = 0; resultado[i]; i++){
+                                  if(resultado[i].estatus == 1){
+                                   %><option value='<%= resultado[i].idcliente %>'><%= resultado[i].nombre %> <%= resultado[i].abreviatura %>-<%= resultado[i].rif %></option> <%
+                                  }
+                              }
+                          %>
+                      </select>
+                      <input type="hidden" name="nombreOriginal" id="nombreOriginal" class="form-control"   />
+                  </div>
+                   <div class="col-md-2">
+                    <label><code> * </code>Índice</label>
+                    <select id="tiporif" name="tiporif" class="form-control" required disabled>
+                      <option value="" selected></option>
+                      <%
+                          var resultado = rifs;
+                           for(var i = 0; resultado[i]; i++){
+                               if(resultado[i].estatus == 1){
+                                %><option value='<%= resultado[i].id %>'><%= resultado[i].abreviatura %></option> <%
+                               }
+                           }
+                       %>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label><code> * </code> C.I/Rif</label>
+                    <input type="text" name="rif" id="rif" class="form-control" disabled placeholder="" required onKeyPress="return fnv_soloNumeros(event)" maxlength="9"  />
+                  </div>
+
+
+                </div>
+                <div class="form-row my-4">
+                    <div class="col-md-6">
+                      <label><code> * </code> Teléfono</label>
+                      <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="" required disabled maxlength="50"  />
+                    </div>
+                    <div class="col-md-6">
+                      <label> Correo</label>
+                      <input type="email" name="email" id="email" class="form-control" placeholder="" disabled maxlength="50"  />
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding: 0px">
+                </div>
+                <div class="form-row my-4">
+                  <div class="col-md-4">
+                    <label><code> * </code> Modelo</label>
+                    <input type="text" name="modelo" id="modelo" class="form-control" required placeholder="Ej: FIESTA POWER 1.6"  maxlength="50"  />
+                  </div>
+                  <div class="col-md-4">
+                    <label><code> * </code> Año</label>
+                    <input type="text" name="anio" id="anio" class="form-control" onKeyPress="return fnv_soloNumeros(event)"  required placeholder="Ej: 2006"  maxlength="8"  />
+                  </div>
+                  <div class="col-md-4">
+                    <label><code> * </code> Color</label>
+                    <input type="text" name="color" id="color" class="form-control"  required placeholder="Ej: AZUL"  maxlength="20" onKeyPress="return soloLetrasConEspacio(event)" />
+                  </div>
+
+                </div>
+                <div class="form-row my-4">
+                    <div class="col-md-6">
+                      <label><code> * </code> Nro. Placa</label>
+                      <input type="text" required name="placa" id="placa" class="form-control" placeholder="Ej: Mef233" required  maxlength="10"  />
+                      <input type="hidden" name="placaOriginal" id="placaOriginal" class="form-control"   />
+
+                    </div>
+                    <div class="col-md-6">
+                      <label> Batería</label>
+                      <input type="text" name="bateria" id="bateria" class="form-control" placeholder="Ej: Fulgor 800 amp" required  maxlength="40"  />
+                    </div>
+                </div>
+                <div class="form-row my-4">
+                  <div class="col-md-10">
+                    <label><code> * </code>Trabajo a realizar</label>
+                    <textarea  cols="70" rows="2" id="nota" name="nota" required    maxlength="200" placeholder="Informacion adicional..."  pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$" onKeyPress="return soloLetrasConEspacioComaPunto(event)"></textarea>
+                    <br>
+                    <code>(*) Campos Obligatorios</code>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <!-- <input type="hidden" name="estatus" id="estatus" value="0"/> -->
+                <input type="hidden" name="idordenvehiculo" id="idordenvehiculo"  class="form-control" />
+                <input type="hidden" name="idmodelo" id="idmodelo" value="<%= idmodelo %>" class="form-control" />
+                <input type="hidden" name="idmodelocarro" id="idmodelocarro" value="<%= modelos[0].idmodelo %>"/>
+                <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Guardar <i class="fas fa-user-check"></i></button>
+                <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cancelar<i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+<!-- MODAL DE MENSAJES  ASOCIAR RECAUDOS-->
+<form name="lista_asociar_repuesto_lista_form" action="post" id="lista_asociar_repuesto_lista_form" action="#" autocomplete="off">
+  <div class="modal fade bd-example-modal-lg" id="listaAsociarRepuestoModal" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Asociar Repuestos</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+
+              <div id="resultados_ajax_msj"></div>
+
+              <div class="form-row">
+                <div class="col-md-6 mb-6">
+
+                    <ul style="font-size: 14px;">
+                      <li>Cliente: <strong> <span id="spancliente"> </span> </strong> </li>
+                      <li>Teléfono: <strong> <span id="spantelefono"> </span> </strong> </li>
+                      <li>Dirección: <strong> <span id="spandireccion"> </span> </strong> </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-6 mb-6">
+
+                    <ul style="font-size: 14px;">
+                      <li>Vehículo:   <strong> <span id="spanvehiculo">   </span> </strong> </li>
+                      <li>Fecha Ingreso:   <strong> <span id="spanfecha">   </span> </strong> </li>
+                      <li>Placa:   <strong> <span id="spanplaca">   </span> </strong> </li>
+                    </ul>
+
+                </div>
+                <div class="col-md126 mb-12">
+
+                    <ul style="font-size: 14px;">
+                      <li>Descripción de trabajo a realizar:   <strong> <span id="spanmotivo">   </span> </strong> </li>
+
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="col-md-6 mb-6">
+                    <label>Repuesto:</label>
+                    <select style="width:100%;" class="form-control js-example-basic-multiple" required name='idrepuestos' id='idrepuestos' class='selecs controlDisabled cursor-bloqueado' onchange="" >
+                      <option value="" >Seleccione un repuesto</option>
+                      <%
+                          var resultado = items;
+                           for(var i = 0; resultado[i]; i++){
+                               if(resultado[i].estatus == 1){
+                                %><option value='<%= resultado[i].idinventario %>'><%= resultado[i].descripcion %> <%= resultado[i].numero_parte %> / <%= resultado[i].numero_parte_secundario %></option> <%
+                               }
+                           }
+                       %>
+                    </select>
+                </div>
+
+                <div class="col-md-5 mb-5">
+                  <label>Cantidad</label>
+                  <input type="text" name="cantidad" id="cantidad" class="form-control" placeholder="" required onKeyPress="return fnv_soloNumeros(event)" />
+                </div>
+
+                <div class="col-md-1 mb-1">
+                <label>&nbsp; &nbsp;</label>
+                  <button type="submit" onClick=""  title="Agregar Repuestos" id="" class="btn btn-success btn-md update"><i class="glyphicon glyphicon-edit"></i><i class="fas fa-plus"></i></button>
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+                <div class="col-md-12 mb-12">
+                  <table id="cliente_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                        <tr>
+                        <th style='text-align: center;' width="5%">#</th>
+                        <th style='text-align: center;' width="10%">Ref.</th>
+                        <th style='text-align: center;' width="55%">Repuesto</th>
+                        <th style='text-align: center;' width="15%">Cant.</th>
+                        <th style='text-align: center;' width="15%">Precio U.</th>
+                        <th style='text-align: center;' width="10%">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="repuesto_data_tbody">
+
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+
+
+
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="idorden" id="idordenAsociarRepuestos"/>
+                <button type="button" onclick="generarpdf()" class="btn btn-primary" >Imprimir <i class="fa fa-list-ul" aria-hidden="true"></i></button>
+                <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+<form name="lista_asociar_manoObra_lista_form" action="post" id="lista_asociar_manoObra_lista_form" action="#" autocomplete="off">
+  <div class="modal fade bd-example-modal-lg" id="listaAsociarManoObraModal" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Asociar Repuestos</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+
+              <div id="resultados_ajax_msj"></div>
+
+
+
+            <div class="form-row">
+
+                <div class="col-md-9 mb-9">
+                    <label>Descripción:</label>
+                    <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="" required onKeyPress="return soloLetrasConEspacio(event)" />
+
+                </div>
+
+                <div class="col-md-2 mb-2">
+                  <label>Costo</label>
+                  <input type="text" name="precio" id="precio" class="form-control" placeholder="Ej: En divisas" required  />
+                </div>
+
+                <div class="col-md-1 mb-1">
+                <label>&nbsp; &nbsp;</label>
+                  <button type="submit" onClick=""  title="Agregar Mano de obra" id="" class="btn btn-success btn-md update"><i class="glyphicon glyphicon-edit"></i><i class="fas fa-plus"></i></button>
+                </div>
+
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col-md-12 mb-12">
+                  <table id="" class="table table-sm table-bordered table-striped">
+                    <thead>
+                        <tr>
+                        <th style='text-align: center;' width="4%" >#</th>
+                        <th style='text-align: center;' width="40%">Descripción</th>
+                        <th style='text-align: center;' width="10%">Costo</th>
+                        <th style='text-align: center;' width="6%">Acción</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="manoObra_data_tbody">
+
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+
+
+
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="idorden" id="idordenAsociarManoObra"/>
+                <button type="button" onclick="generarpdfobra()" class="btn btn-primary" >Imprimir <i class="fa fa-list-ul" aria-hidden="true"></i></button>
+                <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+<!-- /MODAL DE MENSAJES ASOCIAR RECAUDOS -->
+<% include footer %>
+
+<script>
+  <% include js/mmodelo.js %>
+</script>
+
+<script>
+  function generarpdf(){
+      var idorden  = $("#idordenAsociarRepuestos").val();
+
+      window.open("/reportes/control/orden.pdf?idorden=" + idorden );
+  }
+  function generarpdfobra(){
+      var idorden = $("#idordenAsociarManoObra").val();
+
+      window.open("/reportes/control/orden.pdf?idorden=" + idorden );
+  }
+</script>
+
+<link rel="stylesheet" href="../public/plugins/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css" />
+<script type="text/javascript" src="../public/plugins/x-editable/dist/bootstrap3-editable/js/bootstrap-editable2.min.js"></script>
+
+<script>
+
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2({
+          language: "es"
+        , theme: "bootstrap"
+        , width: null
+        , tokenSeparators: [',', ' ']
+        , minimumInputLength: 0
+    });
+
+
+  });
+
+</script>

@@ -1,0 +1,163 @@
+<%- include('header', {rol: usuario.rol}); %>
+        <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Gestionar Pedido</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax_session">
+
+          </div>
+        <div id="resultados_ajax"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-success card-outline p-2">
+                <div class="card-header with-border">
+                  <h1 class="box-title">
+                 <!-- <button class="btn btn-success agregarModal" id="add_button" onclick="limpiar()"> Agregar </button></h1>-->
+                  <button class="btn btn-success" id="add_button" onclick="" data-toggle="modal" data-target="#pedidoModal"> Nuevo Pedido</button></h1>
+                  <div class="box-tools pull-right">
+                  </div>
+                </div>
+
+                <div class="card-body table-responsive">
+                  <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                      <label>Estatus</label>
+                        <select class="form-control" required name='codestatus' id='codestatus' class='selecs controlDisabled cursor-bloqueado' onchange="cambiarEstatus(this.value)" >
+                          <option value="" disabled>Seleccione un estatus</option>
+                          <%
+                             var resultado = estatus;
+                              for(var i = 0; resultado[i]; i++){
+                                  if(resultado[i].estatus == 1){
+                                   var seleccionado = (resultado[i].codestatus==resultado.estatuspedido) ? "selected" : "" ;
+                                   %><option <%= seleccionado %> value='<%= resultado[i].codestatus %>'><%= resultado[i].nombre %></option> <%
+                                  }
+                              }
+                          %>
+                        </select>
+                    </div>
+                  </div>
+                  <table id="pedido_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th width="5%">#</th>
+                        <th width="30%">Cliente</th>
+                        <th width="40%">Descripción</th>
+                        <th>Documento</th>
+                        <th>Fecha</th>
+                        <th width="13%">Estatus</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div><!--Fin centro -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+<!-- agregar-->
+<div class="modal fade" id="pedidoModal">
+<div class="modal-dialog modal-dialog-centered">
+   <form method="post" id="pedido_form">
+
+    <div class="container-fluid modal-content card-success card-outlin8">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear Pedido</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+
+
+              <div class="form-row">
+                <div class="col-sm-8">
+
+                    <ul style="font-size: 14px;">
+                    <li>Nombre: <strong> <span id="spanciudadano_3"><%= usuario.usuario %></span> </strong> </li>
+                    <li>Rif:<strong> <span id="spansector_3"> <%= usuarios[0].nacionalidad %>-<%= usuario.cedula %> </span> </strong> </li>
+
+                    </ul>
+
+                </div>
+                <div class="col-sm-8">
+
+                    <ul style="font-size: 14px;">
+                    <li>Documento:   <strong> <span id="spantramite_3"> NOTA DE ENTREGA </span> </strong> </li>
+                    <li>Fecha: <strong> <span id="spanfecha_3"><% var a= new Date() %> <%=  a.toLocaleDateString() %></span> </strong> </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="col-sm-12">
+                    <label><code>*</code>&nbsp;Observación:</label>
+                    <input type="text" placeholder="Ingrese una observación" name="observacion" id="observacion" class="form-control" placeholder="" onKeyPress="" required/>
+                </div>
+            </div>
+
+
+              </div>
+              <div class="modal-footer">
+                  <input type="hidden" name="idpedido" id="idpedidoprocesar"/>
+                  <input type="hidden" name="estatus"   id="codestatusprocesar"/>
+                  <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Continuar <i class="fas fa-user-check"></i></button>
+                  <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fa fa-times" aria-hidden="true"></i></button>
+
+                </div>
+          </div>
+    </form>
+
+  </div>
+</div>
+
+
+<!-- /MODAL DE MENSAJES PROCESAR -->
+<% include footer %>
+<script>
+
+$(document).ready(function() {
+  $('.js-example-basic-multiple').select2({
+        language: "es"
+      , theme: "bootstrap"
+      , width: null
+      , tokenSeparators: [',', ' ']
+      , minimumInputLength: 1
+  });
+
+  $('.datepicker').datepicker({
+    format: 'dd/mm/yyyy',
+    startDate: '-1m',
+    autoclose: true,
+    endDate: new Date()
+  });
+
+
+
+});
+
+</script>
+
+<script>
+<% include js/mpedido.js %>
+</script>
+
+</body>
+</html>

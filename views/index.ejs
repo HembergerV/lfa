@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <% include parcial/page %>
+    <link rel="stylesheet" href="./public/dist/css/bottom.css">
+    <link rel="stylesheet" href="./public/dist/css/icon-styles.css">
+
+    <link rel="shortcut icon" href="./public/images/favicon.ico">
+    <title>LFA</title>
+</head>
+<style>
+    @font-face {
+  font-family: "untitled-font-1";
+  src:url("./public/dist/css/fonts/untitled-font-1.eot");
+  src:url("./public/dist/css/fonts/untitled-font-1.eot?#iefix") format("embedded-opentype"),
+    url("./public/dist/css/fonts/untitled-font-1.woff") format("woff"),
+    url("./public/dist/css/fonts/untitled-font-1.ttf") format("truetype"),
+    url("./public/dist/css/fonts/untitled-font-1.svg#untitled-font-1") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+    </style>
+<body>
+    <!------------------------------Header------------------------------>
+    <header class="header">
+       <div class="contenedor" id="header">
+           <span class="logo"><a href="/"><img src="./public/images/logo.png" alt="" class="logo-img"></a></span>
+           <input type="checkbox" id="btn-menu">
+           <label for="btn-menu" class="icon-menu"></label>
+           <nave class="nave">
+               <ul class="menu">
+                   <li class="menu_item"><a href="/" class="menu_link">Inicio</a></li>
+                   <li class="menu_item"><a href="/nosotros" class="menu_link">Nosotros</a></li>
+                   <li class="menu_item"><a href="/servicios" class="menu_link">Servicios</a></li>
+                   <li class="menu_item"><a href="/galeria" class="menu_link">Galeria</a></li>
+               </ul>
+           </nave>
+       </div>
+   </header>
+
+    <!------------------------------Formulario Acceder------------------------------>
+    <div class="main">
+        <div class="fondo"></div>
+        <div id="cont-form" class="">
+        <label class="label" id="label">Acceder</label>
+
+        <form class="w3-container form" name="access" id="form" action="/login" method="post">
+           <label class="icon-cancel"></label>
+
+            <buttom onclick="location.href='index.html'"></buttom>
+            <center><span class="icon-lock-1"></span></center>
+                <br>
+            <label class="entrar">Email:</label>
+            <input type="email" name="username" id="usuario" title="campo obligatorio" placeholder="ingrese email" value="" required>
+            <br>
+            <label class="entrar">Clave:</label>
+            <input type="password" name="password" id="clave" title="campo obligatorio"  placeholder="ingrese su clave" value=""  required>
+            <br>
+            <center>
+             <input type="submit" value="Acceder" id="enviar" style="border-bottom:none;background:#495057;color:#fff;cursor:pointer;" />
+            </center>
+            <br>
+            <a href="galeria.html" style='color: #495057; font-weight: bold;font-size:20px;list-style-type: none;text-decoration: none;'><center>¿Olvido su contraseña?</center></a>
+        </form>
+        </div>
+       <!------------------------------Banner------------------------------>
+       <!--<banner class="banner">
+           <div class="contenedor">
+               <div class="image">
+                   <div class="banner_dott"></div>
+                   <img src="" alt="" class="img_banner">
+
+               </div>
+               <div class="txt_banner">
+                   <h2 class="title_banner"></h2>
+                   <p class="phrase_banner">Reparamos tu carro</p>
+               </div>
+           </div>
+        </banner>-->
+         <banner class="banner" id="b">
+            <div class="contenedor">
+                <div class="direccion izq icon-caret-left" style="position:absolute; font-size: 60px; z-index:1000; color: white; top:150px;cursor:pointer;width:5px;height:auto;padding:0px;display:block;font-family: Agency fb" onclick="showSlides(-1)"></div>
+                <div class="mySlides fade image">
+                  <div class="numbertext"></div>
+                  <div class="banner_dott d"></div>
+                  <img src="./public/images/change.jpg" class="img_banner" style="width:100%; height:400px; border-radius:12px;">
+                </div>
+
+                <div class="mySlides fade image">
+                  <div class="numbertext"></div>
+                  <div class="banner_dott"></div>
+                  <img src="./public/images/788%20X%20150%20-%20BASTIDOR%20-%20LA%20FORD%20AUTOMOTRIZ%20-%20DERECHO.jpg" class="img_banner" style="width:100%; height:400px; border-radius:12px;">
+                </div>
+
+                <div class="mySlides fade image">
+                  <div class="numbertext"></div>
+                  <div class="banner_dott"></div>
+                  <img src="./public/images/670%20X%20150%20-%20BASTIDOR%20-%20LA%20FORD%20AUTOMOTRIZ%20-%20IZQUIERDA%20FC.jpg" class="img_banner" style="width:100%; height:400px; border-radius:12px;">
+                </div>
+                <div style="text-align:center">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+                <div class="direccion der icon-caret-right" style="position:absolute; font-size: 60px; z-index:1000;color:white;top:150px;right:25px;cursor:pointer;width:5px;height:auto;padding: 0px 30px;display:block;font-family: Agency fb"onclick="showSlides(1)">></div>
+            </div>
+    </banner>
+        <!------------------------------Banner-bottom------------------------------>
+        <h2 class="title_section" style="color: #495057 ">Bienvenidos</h2>
+          <h3 class="subtitle_section">La Ford Automotriz C.A</h3>
+        <div class="banner-bottom">
+            <div class="contenedor">
+                <div class="bb_item">
+                    <img src="./public/images/mantenimiento.jpg" alt="" class="bb_img">
+                    <span class="icon-tools"></span>
+                    <div class="bb_descript">
+                        <h3 class="title_bbanner">Repuestos</h3>
+                        <p class="phrase_bbanner">Adquiere tus repuestos Ford 100% originales de forma fácil..</p>
+                    </div>
+                </div>
+                <div class="bb_item">
+                    <img src="./public/images/8.jpg" alt="" class="bb_img">
+                    <span class="icon-wrench"></span>
+                    <div class="bb_descript">
+                        <h3 class="title_bbanner">Asesoramiento técnico</h3>
+                        <p class="phrase_bbanner">Diagnóstico computarizado.</p>
+                    </div>
+                </div>
+                <div class="bb_item">
+                    <img src="./public/images/taller.jpg" alt="" class="bb_img">
+                    <span class="icon-check"></span>
+                    <div class="bb_descript">
+                        <h3 class="title_bbanner">Servicio automotriz</h3>
+                        <p class="phrase_bbanner">Reparación general.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------------------------------Seccion------------------------------>
+           <div class="contenedor-contacto">
+              <div class="tecn">
+
+              </div>
+              <div class="information" style="background: none;">
+                  <h3 class="title_info" style="color: gray; border-bottom: none;padding-top:50px">Cómo trabajamos...</h3>
+                  <div class="section_info">
+                      <h4 class="section_title" style="margin:auto;color: #1E90FF;width: 80%;font-size: 20px">Trabajos de mantenimiento preventivo y correctivo según sea la exigencia del cliente.</h4>
+
+                      <ul class="section_descript" style="margin:auto;width: 80%;margin-top: 35px;font-size: 17px;color:gray">
+                          <li class="info_como">Se procede  a la recepción del vehículo.</li>
+                          <li class="info_como">Realiza una inspección minuciosa a la unidad.</li>
+                          <li class="info_como">Se llena una orden de reparación.</li>
+                          <li class="info_como">Se llena un formato de control de reparaciones con datos del cliente, así como la fecha y hora de entrega.</li>
+                          <li class="info_como">Se realiza un pedido de repuesto para la realización del trabajo....</li>
+                      </ul>
+                      <a href="/servicios" class="leermas">Leer más</a>
+                  </div>
+
+
+              </div>
+           </div>
+         <!------------------------------Contact------------------------------>
+           <div class="contenedor-contacto">
+              <div class="contact">|
+                  <h2 class="title_info">Contáctanos</h2>
+                  <form action="/enviar" class="formulario" method="post">
+                      <input type="username" name="username" placeholder="Nombre" class="inpu" required>
+                      <input type="email" name="email" placeholder="Email" class="inpu" required>
+                      <input type="tlf" name="tlf" placeholder="Teléfono" class="inpu" required>
+
+                      <textarea class="texa" name="textarea" id="" cols="30" rows="10"></textarea>
+                      <br>
+                      <input type="submit" class="inpus">
+
+                  </form>
+              </div>
+              <div class="information">
+                  <h2 class="title_info">Información de contacto</h2>
+                  <div class="section_info">
+                      <h4 class="section_title">Dirección</h4>
+                      <p class="section_descript"><span class="icon-map-marker"></span> Calle 28, Entre Av. 45 y 46, Edificio Mis Tres Hijos, P.B, Local 1, Sector Bella Vista II, Acarigua Edo. Portuguesa.</p>
+                  </div>
+                  <div class="section_info">
+                      <h4 class="section_title">Teléfono</h4>
+                      <p class="section_descript"><span class="icon-mobile"></span>0255-6235845</p>
+                  </div>
+                  <div class="section_info">
+                      <h4 class="section_title">E-Mail</h4>
+                      <a href="#" class="section_descript"><span class="icon-torsos"></span>lafordautomotriz@gmail.com</a>
+                  </div>
+              </div>
+
+           </div>
+        <div class="info">
+            <div class="contenedor">
+                <div class="info_item">
+                    <div class="contend_info">
+                        <span class="info-img"><img src="./public/images/rapto.jpg" alt=""></span>
+                    </div>
+                </div>
+                <div class="info_item">
+                    <span class="title_info">Profesional</span>
+                    <div class="contend_info">
+                        <p>Conoce los servicios automotrices realizados por nuestros profesionales y accede ya a la plataforma de consulta de repuestos más innovadora para solicitar los repuestos Ford que necesites.
+                        </p>
+                        <div class="social">
+                           <a href="#" class="icon-facebook"></a>
+                           <a href="#" class="icon-instagram"></a>
+                           <a href="#" class="icon-google-plus"></a>
+                       </div>
+                    </div>
+                </div>
+                <div class="info_item">
+                    <span class="title_info">Blog post</span>
+                    <div class="contend_info"><img src="./public/images/conn.jpg" alt=""></div>
+                </div>
+                <div class="info_item">
+                    <span class="title_info">Otros</span>
+                    <div class="contend_info">
+                        <a href="" class="palabrasC">-Negocios</a>
+                        <a href="" class="palabrasC">-Seguridad</a>
+                        <a href="" class="palabrasC">-Cuentas</a>
+                        <a href="" class="palabrasC">-Repuestos</a>
+                        <a href="" class="palabrasC">-Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--------
+    ----------------------Footer------------------------------>
+    <footer>
+       <small class="derechos"><span>&copy;</span> La Ford Automotriz, C.A. Rif: J-40331064-5. Todos los derechos reservados.</small>
+   </footer>
+    <script>
+    var m = document.getElementsByClassName('alert')[0];
+    if(m){
+        var negro = document.getElementsByClassName("fondo")[0];
+        var form = document.getElementsByClassName("form")[0];
+
+        negro.classList.toggle("oscurecete");
+        form.classList.toggle('translatea');
+    }
+
+
+    </script>
+    <script src="./public/js/main.js"></script>
+
+</body>
+</html>

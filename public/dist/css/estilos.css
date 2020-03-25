@@ -1,0 +1,119 @@
+*{
+    margin: 0px;
+    box-sizing:border-box;
+}
+h1, h2, h3, h4, h5, h6, span{
+    font-family: "Open Sans", arial
+}
+body{
+    font-family: "Yanone Kaffeesatz", "Open Sans", arial
+}
+.background_img{
+    background-image: url(/public/images/LA_FORD.png);
+    background-position: 65%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size:contain;
+    position: absolute;
+    margin: auto 50% auto;
+    opacity: .08;
+    top: 50%;
+    width: 100%;
+    height: 146vh;
+    left: -50%
+    
+} 
+.fondo{
+    display: none;
+    position: fixed;
+    width: 100vh;
+    height: 100%;
+    background: none;
+    z-index: 10000;
+    transition: all 0.2s
+}
+
+.devuelta{
+    transform: translateY(-100%)
+}
+.oscurecete{
+    display: block;
+    width: 100%;
+    background: black;
+    opacity: 0.8
+}
+
+.header{
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    z-index: 500;
+}
+.contenedor{
+    width: 95%;
+    margin: auto;
+}
+.header .contenedor{
+    margin-top: 0px;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px
+}
+.logo{
+    max-height: 100px;
+    z-index: 1000000
+}
+.logo-img{
+    margin-top: -4px;
+    width: 120px;
+    margin-left: 10px;
+    max-width: 300px;
+    cursor: pointer;
+    transition: all .34s
+}
+.logo-img:hover, .loi:hover{
+    filter: brightness(1.14)
+}
+.reduce{
+    width: 90px;
+}
+.botones{
+    position: absolute;
+    right:90px;
+    margin-top: 12px
+}
+img{
+    width: 100%
+}
+
+.sticky{
+    margin-top: 0px;
+    padding: 0px 10px;
+    height: 50px;
+    background: rgba(50,120,0,.7);
+    width: 95%;
+    display: flex;
+    transition: all 1.15s;  
+    
+}
+@media (min-width:1024px) {
+    .sticky{
+        height: 50px;
+        width: 95%
+    }
+    .header .contenedor{
+        margin-top: 0px;
+        height: 50px;
+        width: 100%
+    }
+    .logo{
+        width: 90px;
+        max-width: 300px   
+    }
+    .logo img{
+        margin-top: 0px;
+    }
+}
+

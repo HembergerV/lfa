@@ -1,0 +1,120 @@
+<%- include('header', {rol: usuario.rol}); %>
+<form method="post" id="">
+    <!--___________________________CONTENIDO______________________________-->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Orden vehículo</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="">
+
+                <div class="modal-body ">
+                  <h4>Trabajo en Otro Taller</h4>
+
+                  <div class="form-row">
+                      <div class="col-md-10 mb-10">
+                          <label>Descripción:</label>
+                          <input type="text" value="T.O.T. " name="cantidad" id="cantidad" class="form-control" placeholder="" required onKeyPress="return fnv_soloNumeros(event)" />
+
+                      </div>
+
+                      <div class="col-md-1 mb-1">
+                        <label>Costo</label>
+                        <input type="text" name="cantidad" id="cantidad" class="form-control" placeholder="" required onKeyPress="return fnv_soloNumeros(event)" />
+                      </div>
+
+                      <div class="col-md-1 mb-1">
+                      <label>&nbsp; &nbsp;</label>
+                        <button type="submit" onClick=""  title="Agregar Repuestos" id="" class="btn btn-success btn-md update"><i class="glyphicon glyphicon-edit"></i><i class="fas fa-plus"></i></button>
+                      </div>
+
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12 mb-12">
+                        <table id="" class="table table-sm table-bordered table-striped">
+                          <thead>
+                              <tr>
+                              <th style='text-align: center;' width="4%" >#</th>
+                              <th style='text-align: center;' width="40%">Descripción</th>
+                              <th style='text-align: center;' width="8%">Costo</th>
+                              </tr>
+                          </thead>
+                          <tbody id="">
+                             <tr>
+                               <td>1</td>
+
+                               <td>adasdasd</td>
+                               <td style='text-align: center;'>450</td>
+                             </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div><!-- fin form-row-->
+              </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="modal-body">
+
+                <h4>Referencia Repuesto</h4>
+                <div class="form-row">
+                    <div class="col-md-12 mb-12">
+
+                        <table id="" class="table table-sm table-bordered table-striped">
+                          <thead>
+                              <tr>
+                              <th style='text-align: center;' width="4%" >#</th>
+                              <th style='text-align: center;' width="10%">Ref.</th>
+                              <th style='text-align: center;' width="40%">Descripción</th>
+                              <th style='text-align: center;' width="8%">Cantidad</th>
+                              </tr>
+                          </thead>
+                          <tbody id="">
+                            <% for(var i = 0; i < repuestos.length; i++){ %>
+                             <tr>
+                               <td style='text-align: center;'><%= i+1 %></td>
+                               <td style='text-align: center;'><%= repuestos[i].referencia %></td>
+                               <td ><%= repuestos[i].descripcion %></td>
+                               <td style='text-align: center;'><%= repuestos[i].cantidad %></td>
+                             </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                    </div>
+
+                  </div><!-- fin form-row-->
+
+
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+
+    </form>
+    <% include footer %>

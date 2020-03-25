@@ -1,0 +1,82 @@
+<%- include('header', {rol: usuario.rol}); %>
+    <!--___________________________CONTENIDO______________________________-->
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Pedido </h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div id="resultados_ajax10"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <div class="card card-success card-outline">
+              <div class="card-header">
+                <h1 class="box-title">
+                <button class="btn btn-success"  id="add_button" data-toggle="modal" data-target="#crearpModal"><a style="text-decoration: none; color:white" href="/mcatalogo"><i class="fa fa-search" aria-hidden="true"></i> Buscar</a></button></h1>
+              </div>
+
+              <!-- /.card-header -->
+              <div class="card-body">
+               <div class="form-row">
+                <div class="col-sm-8">
+
+                    <ul style="font-size: 14px;">
+                    <li>Pedido: <strong> <span id="<%= idp %>"><%= idp %></span> </strong> </li>
+
+                    <li>Nombre: <strong> <span id="spanciudadano_3"><%= usuario.usuario %></span> </strong> </li>
+                    <li>Rif:<strong> <span id="spansector_3"> <%= usuario.nacionalidad %>-<%= usuario.cedula %> </span> </strong> </li>
+
+                    </ul>
+
+                </div>
+                <div class="col-sm-8">
+
+                    <ul style="font-size: 14px;">
+                    <li>Documento:   <strong> <span id="spantramite_3"> NOTA DE ENTREGA </span> </strong> </li>
+                    <li>Fecha: <strong> <span id="spanfecha_3"><% var a= new Date() %> <%= a.toLocaleDateString() %></span> </strong> </li>
+                    </ul>
+
+                </div>
+
+
+            </div>
+                <div class="card-body table-responsive">
+                  <table id="crearp_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Código</th>
+                        <th width="35%">Descripción</th>
+                        <th>Precio</th>
+                        <th width="2%">Cantidad</th>
+                        <th width="7%">Disp</th>
+                        <th width="7%">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!--___________________________CONTENIDO______________________________-->
+<% include footer %>
+<script>
+<% include js/crearpedido.js %>
+</script>
+
+</body>
+</html>

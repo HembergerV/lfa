@@ -1,0 +1,32 @@
+{
+  "name": "LFA",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "html-pdf": "^2.2.0",
+    "method-override": "^2.3.10",
+    "multer": "^1.4.1",
+    "mysql": "^2.16.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pdfkit": "^0.11.0",
+    "pdfmake": "^0.1.63",
+    "xls-to-json-lc": "^0.3.4",
+    "xlsx-to-json-lc": "^0.2.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

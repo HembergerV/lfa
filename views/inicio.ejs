@@ -1,0 +1,81 @@
+<%- include('header', {rol: usuario.rol}); %>
+   <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Inicio</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+        <div id="resultados_ajax"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10">
+              <div class="card card-success card-outline p-2">
+                <div class="card-header with-border">
+                  <h3 class="box-title">
+                  Últimas ventas</h3>
+                  <div class="box-tools pull-right">
+                  </div>
+                </div>
+                <div class="card-body table-responsive">
+                  <table id="municipio_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>Concepto</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
+                        <th width="10%">Estatus</th>
+                        <th width="5%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>ADMINISTRADOR</td>
+                        <td>COMPRA REPUESTOS ENTONACION FIESTA POWER 1.6</td>
+                        <td>
+                          <span class="badge badge-primary" style="float:right;"> BS 18.000.000</span>
+                          <span class="badge badge-success" style="float:right;"> $ 200</span>
+                        </td>
+                        <td>01-01-2020</td>
+                        <td>Finalizado</td>
+                        <td width="5%"><button type="button" onclick=""  class="btn btn-primary btn-md update"><i class="fa fa-check"></i></button></td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>HEMBERGERVASQUEZ</td>
+                        <td>COMPRA REPUESTOS TREN DELANTERO ESCAPE 3.0</td>
+                        <td>
+                          <span class="badge badge-primary" style="float:right;"> BS 4.500.000</span>
+                          <span class="badge badge-success" style="float:right;"> $ 50</span>
+                        </td>
+                        <td>01-01-2020</td>
+                        <td>Finalizado</td>
+                        <td width="5%"><button type="button" onclick=""  class="btn btn-primary btn-md update"><i class="fa fa-check"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!--Fin centro -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- /.content -->
+  </div>
+  </div>
+
+    <!--___________________________CONTENIDO______________________________-->
+<% include footer %>
+
+</body>
+</html>

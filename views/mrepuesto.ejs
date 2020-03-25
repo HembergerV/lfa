@@ -1,0 +1,159 @@
+<%- include('header', {rol: usuario.rol}); %>
+      <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Repuesto</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <div id="resultados_ajax4"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="card card-success card-outline p-2">
+                <div class="card-header with-border">
+                  <h1 class="box-title">
+                  <button class="btn btn-success" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#repuestoModal"> Agregar </button></h1>
+                  <div class="box-tools pull-right">
+                  </div>
+                </div>
+                <div class="card-body table-responsive">
+                  <table id="repuesto_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Referencia</th>
+                        <th width="20%">Nro parte</th>
+                        <th width="40%">Descripción</th>
+                        <th>Marca</th>
+                        <th>Línea</th>
+                        <th>Sublínea</th>
+<!--                        <th>Mínimo</th> -->
+                        <th>Estatus</th>
+                        <th width="10%">Editar</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!--FORMULARIO VENTANA MODAL-->
+    <div id="repuestoModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <form method="post" id="repuesto_form">
+          <div class="modal-content card-success card-outline">
+            <div class="modal-header">
+              <h4 class="modal-title">Registrar Repuesto</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-row my-4">
+                <div class="col-md-3">
+                  <label><code> * </code> Referencia</label>
+                  <input type="text" name="referencia" id="referencia" class="form-control" placeholder="Ej: 123456" required  maxlength="8"  />
+                  <input type="hidden" name="referenciaOriginal" id="referenciaOriginal" class="form-control"   />
+                </div>
+                <div class="col-md-9">
+                  <label><code> * </code> Descripcion</label>
+                  <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Ej: Filtro Aceite Super duty 6.2" required maxlength="150"  />
+                </div>
+              </div>
+              <div class="form-row my-4">
+                <div class="col-md-4">
+                  <label><code> * </code> N° Parte</label>
+                  <input type="text" name="numero_parte" id="numero_parte" class="form-control" placeholder="Ej: 2S65-6038-A" required  maxlength="50"  />
+                </div>
+                <div class="col-md-4">
+                  <label> N° Parte Secundario</label>
+                  <input type="text" name="numero_parte_secundario" id="numero_parte_secundario" class="form-control" placeholder="Ej: FC-1055"   maxlength="50"  />
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Stock Mínimo</label>
+                  <input type="text" name="minimo" id="minimo" class="form-control" placeholder="Ej: 4" required  maxlength="50"  />
+                </div>
+              </div>
+              <div class="form-row my-4">
+               <div class="col-md-4">
+                  <label><code> * </code> Marca</label>
+                  <select id="marca" name="marca" class="form-control" required >
+                    <option value="" selected>Seleccione una opcion</option>
+                       <%
+                           var resultado = marcas;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].id %>'><%= resultado[i].nombre %></option> <%
+                                }
+                            }
+                        %>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Línea</label>
+                  <select class="form-control" id="idlinea" name="idlinea" required onchange="cargarCombo(this.value,this.name,'sublinea','idsublinea','nombre','')">
+                  <option value="" selected>Seleccione una opcion</option>
+                     <%
+                           var resultado = lineas;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].idlinea %>'><%= resultado[i].nombre %></option> <%
+                                }
+                            }
+                        %>
+
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> Sub Línea</label>
+                  <select id="idsublinea" name="idsublinea" class="form-control" required >
+                    <option value="" selected>Seleccione una opcion</option>
+                        <%
+                           var resultado = sublineas;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].idsublinea %>'><%= resultado[i].nombre %></option> <%
+                                }
+                            }
+                        %>
+
+                  </select>
+                </div>
+              </div>
+              <div class="form-row my-4">
+                <div class="col-md-12">
+                  <label>Nota</label>
+                  <textarea cols="90" rows="2" id="nota" name="nota"  placeholder="  Información adicional..."  pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$"></textarea>
+                  <br>
+                  <code>(*) Campos Obligatorios</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <!-- <input type="hidden" name="estatus" id="estatus" value="0"/> -->
+              <input type="hidden" name="idrepuesto" id="idrepuesto"/>
+              <input type="file">
+
+              <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Guardar <i class="fas fa-user-check"></i></button>
+              <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cancelar<i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <% include footer %>
+    <script>
+    <% include js/mrepuesto.js %>
+    </script>
+    </body>
+    </html>

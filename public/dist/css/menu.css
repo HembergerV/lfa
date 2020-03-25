@@ -1,0 +1,105 @@
+.icon-menu, .icon-cancel{
+    margin: 5px 0px;
+    position: relative;
+    color: white;
+    right: 28px;
+    font-size: 28px;
+    background: none;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 40px;
+    border: none;
+    border-radius: 10%;
+    cursor: pointer;
+    z-index: 100000;
+    top: -4px
+}
+#btn-menu{
+    display: none
+}
+#btn-menu:checked ~ .nave{
+    transform: translateX(2.5%);
+}
+#btn-menu:checked ~ #label{
+    display: none
+}
+#btn-menu:checked ~ .icon-menu{
+    color: white
+}
+
+.nave{
+    position: fixed;
+    transform: translateX(-100%);
+    transition: all 0.3s;
+    top: 0px;
+    padding-top: 40px;
+    left: 0px;
+    width: 95%;
+    height: 350px;
+    background: rgba(0,80,251,1);
+    z-index: 10000
+
+}
+.menu{
+    margin-left: -2;
+    list-style: none;
+}
+.menu_item{
+    margin-left: -40px;
+}
+.menu_link{
+    display: block;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    border-bottom: 1px solid rgba(191,191,191,0.7);
+    text-align: center
+}
+.menu_link:hover, .select{
+    background: rgba(255,255,255,0.2);
+}
+@media (min-width:800px) {
+    .icon-menu, .icon-cancel{
+        margin: 10px 0px 10px;
+        line-height: 40px;
+        height: 100%; 
+    }
+    .logo{
+        z-index: 1000;
+    }
+    .header{
+        position: relative
+    }
+    .nave{
+        transform: translateX(-100%);
+        height: 50px;
+        width: 100%;
+        position: absolute;
+        left: 0px
+    }
+    #btn-menu:checked ~ .nave{
+        transform: translateX(0%);
+    }
+    .menu{
+        display: flex;
+        position: absolute;
+        top: 0px;
+        margin-right: 80px;
+        right: 40px
+    }
+    .menu_item{
+        margin: 2px;
+        height: 45px;
+        margin-right: 2px;
+        line-height: 15px
+    }
+    .menu_link{
+        margin: 2px;
+        height: 42px;
+/*        "border-left: 2px solid rgba(191,191,191,0.7);"*/
+        border-bottom: none;
+/*        "border-right: 2px solid rgba(191,191,191,0.7);"*/
+    }
+}

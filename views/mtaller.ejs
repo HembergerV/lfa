@@ -1,0 +1,117 @@
+<%- include('header', {rol: usuario.rol}); %>
+   <!--___________________________CONTENIDO______________________________-->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Vehículos LFA</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+      <div id="resultados_ajax10"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <div class="card card-success card-outline">
+              <div class="card-header">
+                <h1 class="box-title">
+                <button class="btn btn-success" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#vehiculoModal"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button></h1>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="card-body table-responsive">
+                  <div class="container-fluid">
+                    <div class="row" id="vehiculo_data">
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--FORMULARIO VENTANA MODAL-->
+    <div  id="vehiculoModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form method="post" id="vehiculoForm">
+            <div class="modal-content card-success card-outline">
+              <div class="modal-header">
+                <h4 class="modal-title">Agregar modelo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="col-md-10 offset-md-1 mb-3">
+                    <label><code>*</code> &nbsp; Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ej: FIESTA" required  />
+                    <input type="hidden" name="nombreOriginal" id="nombreOriginal" class="form-control"   />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col-md-10 offset-md-1 mb-3">
+                    <label><code>*</code> &nbsp; Marca</label>
+                    <select style="width:100%;" class="form-control js-example-basic-multiple" required name='marca' id='marca' class='selecs controlDisabled cursor-bloqueado' onchange="" >
+                        <option value="" selected="">Seleccione una opción</option>
+                        <option value="FORD" >Ford</option>
+                        <option value="MAZDA" >Mazda</option>
+                        <option value="CHEVROLET" >Chevrolet</option>
+
+                      </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-10 offset-md-1 mb-3">
+                    <label><code>*</code> &nbsp; Tipo</label>
+                    <select style="width:100%;" class="form-control js-example-basic-multiple" required name='tipo' id='tipo' class='selecs controlDisabled cursor-bloqueado' onchange="" >
+                        <option value="" selected="">Seleccione una opción</option>
+                        <option value="AUTO" >Auto</option>
+                        <option value="CAMIONETA" >Camioneta</option>
+                        <option value="CAMIÓN" >Camión</option>
+
+                      </select>
+                  </div>
+                </div>
+                <div class="form-row my-10">
+                    <div class="col-md-5 offset-md-1 mb-3">
+                      <label><code>*</code> &nbsp; Color letra</label>
+                      <input type="color" value = "#ffffff" name="colorfont" id="colorfont" class="form-control" placeholder="" required  />
+                    </div>
+                    <div class="col-md-5 mb-3">
+                      <label><code>*</code> &nbsp; Color fondo</label>
+                      <input type="color" value = "#0fa2F0" name="colorbg" id="colorbg" class="form-control" placeholder="" required  />
+                    </div>
+                </div>
+                <br>
+                <code>&nbsp; &nbsp; &nbsp;(*) Campos Obligatorios</code>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Guardar <i class="fas fa-user-check"></i></button>
+                <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- /.content -->
+  </div>
+  </div>
+
+    <!--___________________________CONTENIDO______________________________-->
+<% include footer %>
+<script>
+<% include js/mtaller.js %>
+</script>
+</body>
+</html>

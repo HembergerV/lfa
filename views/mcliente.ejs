@@ -1,0 +1,123 @@
+<%- include('header', {rol: usuario.rol}); %>
+    <!--___________________________CONTENIDO______________________________-->
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Cliente</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div id="resultados_ajax10"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <div class="card card-success card-outline">
+              <div class="card-header">
+                <h1 class="box-title">
+                <button class="btn btn-success" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#clienteModal"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button></h1>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="card-body table-responsive">
+                  <table id="cliente_data" class="table table-sm table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th width="4%">#</th>
+                        <th width="15%">Rif.-C.I</th>
+                        <th width="30%">Nombre-Razón social</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th width="7%">Estatus</th>
+                        <th width="7%">Editar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!--FORMULARIO VENTANA MODAL-->
+  <div id="clienteModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <form method="post" id="cliente_form">
+          <div class="modal-content card-success card-outline">
+            <div class="modal-header">
+              <h4 class="modal-title">Registrar Clientes</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-row my-4">
+                <div class="col-md-2">
+                  <label><code> * </code>Índice</label>
+                  <select id="tiporif" name="tiporif" class="form-control" required >
+                    <option value="" selected>Ej: J</option>
+                       <%
+                           var resultado = rifs;
+                            for(var i = 0; resultado[i]; i++){
+                                if(resultado[i].estatus == 1){
+                                 %><option value='<%= resultado[i].id %>'><%= resultado[i].abreviatura %></option> <%
+                                }
+                            }
+                        %>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label><code> * </code> C.I/Rif</label>
+                  <input type="text" name="rif" id="rif" class="form-control" placeholder="Ej: 403310645" required onKeyPress="return fnv_soloNumeros(event)" maxlength="9"  />
+                  <input type="hidden" name="rifOriginal" id="rifOriginal" class="form-control"   />
+                </div>
+                <div class="col-md-6">
+                  <label><code> * </code> Nombres-Razón social</label>
+                  <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ej: Helena Vásquez" required  maxlength="100"  />
+                </div>
+              </div>
+              <div class="form-row my-4">
+                <div class="col-md-6">
+                  <label><code> * </code> Teléfono</label>
+                  <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Ej: 0414-3737824" required  maxlength="12"  />
+                </div>
+                <div class="col-md-6">
+                  <label>Correo</label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Ej: hemberger@gmail.com"  maxlength="50"  />
+                </div>
+              </div>
+              <div class="form-row my-4">
+                <div class="col-md-10">
+                  <label>Dirección</label>
+                  <textarea  cols="70" rows="2" id="direccion" name="direccion"   placeholder="  Información adicional..."  pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$"></textarea>
+                  <br>
+                  <code>(*) Campos Obligatorios</code>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <!-- <input type="hidden" name="estatus" id="estatus" value="0"/> -->
+              <input type="hidden" name="idcliente" id="idcliente"/>
+              <button type="submit" name="action" id="btnGuardar" class="btn btn-success pull-left" value="Add">Guardar <i class="fas fa-user-check"></i></button>
+              <button type="button" onclick="limpiar()" class="btn btn-danger" data-dismiss="modal">Cancelar<i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  <!--___________________________CONTENIDO______________________________-->
+<% include footer %>
+<script>
+<% include js/mcliente.js %>
+</script>
+
+</body>
+</html>
