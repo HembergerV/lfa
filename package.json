@@ -2,6 +2,9 @@
   "name": "LFA",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.16.x"
+  },
   "main": "app.js",
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
